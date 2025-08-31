@@ -49,4 +49,10 @@ class UserViewModel(
             )
         }
     }
+
+    fun deleteAllRecords(){
+        viewModelScope.launch {
+            repository.deleteAllUsersRecord()
+        }
+    }
 }

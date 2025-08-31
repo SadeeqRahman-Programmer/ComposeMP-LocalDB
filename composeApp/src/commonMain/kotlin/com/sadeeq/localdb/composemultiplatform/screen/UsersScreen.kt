@@ -93,6 +93,13 @@ fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
                 ) {
                     Text("Update User")
                 }
+                Button(
+                    onClick = {
+                       userViewModel.deleteAllRecords()
+                    }
+                ) {
+                    Text("Delete Records")
+                }
             }
 
             LazyColumn {

@@ -16,3 +16,6 @@ DELETE FROM UserTable WHERE id = ?;
 
 updateUserInfo:
 UPDATE UserTable SET userName = ?, mobileNumber = ? WHERE id = ?;
+
+deleteAllRecords:
+DELETE FROM UserTable;

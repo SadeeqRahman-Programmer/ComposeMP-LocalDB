@@ -41,4 +41,8 @@ class UserRepository(
             id = userId
         )
     }
+
+    fun deleteAllUsersRecord(){
+        userTableQueries.deleteAllRecords()
+    }
 }
