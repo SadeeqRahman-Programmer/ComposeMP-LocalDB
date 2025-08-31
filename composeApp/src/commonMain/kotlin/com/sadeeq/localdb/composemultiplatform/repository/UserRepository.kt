@@ -29,4 +29,16 @@ class UserRepository(
     fun deleteUserById(userId: Long){
         userTableQueries.deleteUserById(id = userId)
     }
+
+    fun updateUserInfo(
+        userId: Long,
+        mobileNumber: String,
+        userName: String
+    ){
+        userTableQueries.updateUserInfo(
+            userName = userName,
+            mobileNumber = mobileNumber,
+            id = userId
+        )
+    }
 }

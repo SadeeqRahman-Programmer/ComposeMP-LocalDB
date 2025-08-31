@@ -35,4 +35,18 @@ class UserViewModel(
             repository.deleteUserById(userId)
         }
     }
+
+    fun updateUserInfo(
+        userId: Long,
+        userName: String,
+        mobileNumber: String
+    ){
+        viewModelScope.launch {
+            repository.updateUserInfo(
+                userId= userId,
+                userName = userName,
+                mobileNumber = mobileNumber
+            )
+        }
+    }
 }

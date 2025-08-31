@@ -47,6 +47,7 @@ fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
     )
     var userName by remember { mutableStateOf("") }
     var mobileNumber by remember { mutableStateOf("") }
+    var userID: Long by remember { mutableStateOf(0) }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -66,16 +67,36 @@ fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
                 onValueChange = { mobileNumber = it }
             )
 
-            Button(
-                onClick = {
-                    userViewModel.saveNewUser(userName, mobileNumber)
-                }
+            Row(
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Save User")
+
+                Button(
+                    onClick = {
+                        userViewModel.saveNewUser(userName, mobileNumber)
+                        userName = ""
+                        mobileNumber = ""
+                    }
+                ) {
+                    Text("Save User")
+                }
+                Button(
+                    onClick = {
+                        userViewModel.updateUserInfo(
+                            userId = userID,
+                            userName = userName,
+                            mobileNumber = mobileNumber
+                        )
+                        userName = ""
+                        mobileNumber = ""
+                    }
+                ) {
+                    Text("Update User")
+                }
             }
 
             LazyColumn {
-                items(usersList.size){
+                items(usersList.size) {
                     Column(
                         modifier = Modifier.fillMaxWidth()
                             .padding(20.dp)
@@ -83,6 +104,11 @@ fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth()
+                                .clickable {
+                                    userName = usersList[it].userName
+                                    mobileNumber = usersList[it].mobileNumber
+                                    userID = usersList[it].id
+                                }
                         ) {
 
                             Column(
@@ -105,11 +131,11 @@ fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
                                 painter = painterResource(Res.drawable.delete),
                                 contentDescription = "Delete User",
                                 modifier = Modifier.size(30.dp)
-                                    .clickable{
+                                    .clickable {
                                         userViewModel.deleteUserById(usersList[it].id)
                                     }
                             )
-                             Image(
+                            Image(
                                 painter = painterResource(Res.drawable.edit),
                                 contentDescription = "Edit User",
                                 modifier = Modifier.size(30.dp)
