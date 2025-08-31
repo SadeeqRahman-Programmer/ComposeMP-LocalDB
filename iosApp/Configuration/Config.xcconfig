@@ -1,0 +1,7 @@
+TEAM_ID=
+
+PRODUCT_NAME=ComposeMP-LocalDB
+PRODUCT_BUNDLE_IDENTIFIER=com.sadeeq.localdb.composemultiplatform.ComposeMP-LocalDB$(TEAM_ID)
+
+CURRENT_PROJECT_VERSION=1
+MARKETING_VERSION=1.0
