@@ -3,3 +3,7 @@ id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 userName TEXT NOT NULL,
 mobileNumber TEXT NOT NULL
 );
+
+insert:
+INSERT INTO UserTable(userName, mobileNumber)
+VALUES (?,?);
