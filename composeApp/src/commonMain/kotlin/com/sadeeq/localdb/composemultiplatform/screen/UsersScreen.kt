@@ -1,11 +1,15 @@
 package com.sadeeq.localdb.composemultiplatform.screen
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
@@ -23,8 +27,12 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.sadeeq.localdb.composemultiplatform.repository.UserRepository
 import com.sadeeq.localdb.composemultiplatform.viewModel.UserViewModel
+import composemp_localdb.composeapp.generated.resources.Res
+import composemp_localdb.composeapp.generated.resources.delete
+import composemp_localdb.composeapp.generated.resources.edit
 import kotlinx.coroutines.Dispatchers
 import org.example.project.localDB.database.SQLDelightDemoDatabase
+import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
@@ -71,18 +79,46 @@ fun UsersScreen(databaseFactory: SQLDelightDemoDatabase) {
                     Column(
                         modifier = Modifier.fillMaxWidth()
                             .padding(20.dp)
+
                     ) {
-                        Text(
-                            text = usersList[it].userName,
-                            fontSize = 20.sp,
-                            color = Color.Black
-                        )
-                        Text(
-                            modifier = Modifier.padding(top = 10.dp),
-                            text = usersList[it].mobileNumber,
-                            fontSize = 15.sp,
-                            color = Color.Gray
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+
+                            Column(
+                                modifier = Modifier.fillMaxWidth().weight(1f)
+                            ) {
+                                Text(
+                                    text = usersList[it].userName,
+                                    fontSize = 20.sp,
+                                    color = Color.Black
+                                )
+                                Text(
+                                    modifier = Modifier.padding(top = 10.dp),
+                                    text = usersList[it].mobileNumber,
+                                    fontSize = 15.sp,
+                                    color = Color.Gray
+                                )
+                            }
+
+                            Image(
+                                painter = painterResource(Res.drawable.delete),
+                                contentDescription = "Delete User",
+                                modifier = Modifier.size(30.dp)
+                                    .clickable{
+                                        userViewModel.deleteUserById(usersList[it].id)
+                                    }
+                            )
+                             Image(
+                                painter = painterResource(Res.drawable.edit),
+                                contentDescription = "Edit User",
+                                modifier = Modifier.size(30.dp)
+                                    .padding(start = 5.dp, end = 5.dp)
+                            )
+
+
+                        }
+
                     }
                 }
             }

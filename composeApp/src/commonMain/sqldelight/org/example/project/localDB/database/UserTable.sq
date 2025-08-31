@@ -10,3 +10,6 @@ VALUES (?,?);
 
 selectAllUsers:
 SELECT * FROM UserTable;
+
+deleteUserById:
+DELETE FROM UserTable WHERE id = ?;

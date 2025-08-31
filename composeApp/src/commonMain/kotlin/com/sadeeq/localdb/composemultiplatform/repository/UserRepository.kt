@@ -23,5 +23,10 @@ class UserRepository(
     }
 
     fun getAllUsers(): Flow<List<UserTable>> =
-        userTableQueries.selectAllUsers().asFlow().mapToList(Dispatchers.Main)
+        userTableQueries.selectAllUsers().asFlow()
+            .mapToList(Dispatchers.Main)
+
+    fun deleteUserById(userId: Long){
+        userTableQueries.deleteUserById(id = userId)
+    }
 }

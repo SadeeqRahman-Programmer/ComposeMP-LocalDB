@@ -29,4 +29,10 @@ class UserViewModel(
             )
         }
     }
+
+    fun deleteUserById(userId: Long){
+        viewModelScope.launch {
+            repository.deleteUserById(userId)
+        }
+    }
 }
