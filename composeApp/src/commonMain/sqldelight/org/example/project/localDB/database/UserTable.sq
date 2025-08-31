@@ -7,3 +7,6 @@ mobileNumber TEXT NOT NULL
 insert:
 INSERT INTO UserTable(userName, mobileNumber)
 VALUES (?,?);
+
+selectAllUsers:
+SELECT * FROM UserTable;

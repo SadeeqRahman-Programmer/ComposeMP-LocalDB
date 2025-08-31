@@ -3,19 +3,30 @@ package com.sadeeq.localdb.composemultiplatform.viewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.sadeeq.localdb.composemultiplatform.repository.UserRepository
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.example.project.localDB.database.UserTable
 
 class UserViewModel(
     private val repository: UserRepository
-): ViewModel() {
+) : ViewModel() {
+
+    val userList: Flow<List<UserTable>> =
+        repository.getAllUsers().stateIn(
+            viewModelScope, SharingStarted.Lazily, emptyList()
+        )
 
     fun saveNewUser(
-        userName:String,
+        userName: String,
         mobileNumber: String
-    ){
-        viewModelScope.launch { repository.saveNewUser(
-            userName =  userName,
-            mobileNumber = mobileNumber
-        ) }
+    ) {
+        viewModelScope.launch {
+            repository.saveNewUser(
+                userName = userName,
+                mobileNumber = mobileNumber
+            )
+        }
     }
 }
