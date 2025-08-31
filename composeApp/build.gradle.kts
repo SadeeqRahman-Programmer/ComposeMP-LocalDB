@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.cash.sqdelight)
 }
 
 kotlin {
@@ -24,7 +25,7 @@ kotlin {
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
-            isStatic = true
+            isStatic = false
         }
     }
     
@@ -32,6 +33,8 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation (libs.android.driver)
+
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -42,9 +45,15 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodelCompose)
             implementation(libs.androidx.lifecycle.runtimeCompose)
+            implementation(libs.coroutines.extensions)
+            implementation("app.cash.sqldelight:runtime:2.1.0")
+
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+        }
+        iosMain.dependencies {
+            implementation (libs.native.driver)
         }
     }
 }
@@ -78,5 +87,13 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+}
+
+sqldelight {
+    databases {
+        create(name = "SQLDelightDemoDatabase") {
+            packageName.set("org.example.project.localDB.database")
+        }
+    }
 }
 
